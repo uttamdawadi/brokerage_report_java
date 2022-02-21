@@ -58,7 +58,7 @@ public class Main {
         return tDate;
     }
 
-    private static String totalBrokerageAmount(List<Transaction> transaction, String adviser) {
+    public static String totalBrokerageAmount(List<Transaction> transaction, String adviser) {
         double totalAmount = 0;
         totalAmount = transaction.stream().
                 filter(name -> adviser.equals(name.getAdvisor()))
@@ -66,7 +66,7 @@ public class Main {
         return String.format("%,.2f", totalAmount);
     }
 
-    private static List<Transaction> readTransaction(String fileName) {
+    public static List<Transaction> readTransaction(String fileName) {
         String COMMA_DELIMITER = ",";
         List<Transaction> records = new ArrayList<>();
         Path pathToFile = Paths.get(fileName);
