@@ -34,7 +34,7 @@ public class Main {
              * The total transaction value should be formatted with two decimal places, with a thousand separator.
              * The total transaction value column should be padded to 10 characters
              * */
-            System.out.println(leftPadding(totalBrokerageAmount(transactions, e),' ',10));
+            System.out.println(leftPadding(totalBrokerageAmount(transactions, e), ' ', 10));
             /* The third row shows the date/time of the oldest and newest transaction for the adviser
              * The date should be shown in Sydney local time
              * The date should be 2 digit day, 3 character month and 4 character year
@@ -61,8 +61,7 @@ public class Main {
     public static String totalBrokerageAmount(List<Transaction> transaction, String adviser) {
         double totalAmount = 0;
         totalAmount = transaction.stream().
-                filter(name -> adviser.equals(name.getAdvisor()))
-                .collect(Collectors.summingDouble(Transaction::getValue));
+                filter(name -> adviser.equals(name.getAdvisor())).mapToDouble(Transaction::getValue).sum();
         return String.format("%,.2f", totalAmount);
     }
 
@@ -113,8 +112,7 @@ public class Main {
     }
 
     public static String leftPadding(String input, char ch, int L) {
-        String result = String.format("%" + L + "s", input).replace(' ', ch);
-        return result;
+        return String.format("%" + L + "s", input).replace(' ', ch);
     }
 
 }
