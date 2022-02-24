@@ -1,18 +1,17 @@
 package com.uttamdawadi.model;
 
-import java.sql.Time;
 import java.sql.Timestamp;
 
 public class Transaction {
 
-    private int txnid;
+    private int txnId;
     private Timestamp timestamp;
     private String account;
     private String advisor;
     private double value;
 
-    public Transaction(int txnid, Timestamp timestamp, String account, String advisor, double value) {
-        this.txnid = txnid;
+    public Transaction(int txnId, Timestamp timestamp, String account, String advisor, double value) {
+        this.txnId = txnId;
         this.timestamp = timestamp;
         this.account = account;
         this.advisor = advisor;
@@ -24,12 +23,12 @@ public class Transaction {
     }
 
 
-    public int getTxnid() {
-        return txnid;
+    public int getTxnId() {
+        return txnId;
     }
 
-    public void setTxnid(int txnid) {
-        this.txnid = txnid;
+    public void setTxnId(int txnId) {
+        this.txnId = txnId;
     }
 
     public Timestamp getTimestamp() {
@@ -68,7 +67,7 @@ public class Transaction {
     @Override
     public String toString() {
         return "Transaction{" +
-                "txnid=" + txnid +
+                "txnId=" + txnId +
                 ", timestamp=" + timestamp +
                 ", account='" + account + '\'' +
                 ", advisor='" + advisor + '\'' +

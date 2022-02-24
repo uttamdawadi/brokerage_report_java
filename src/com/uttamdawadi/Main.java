@@ -12,7 +12,6 @@ import java.sql.Timestamp;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -23,7 +22,7 @@ public class Main {
         //Calculation of Brokerage
         List<String> advisor = transactions.stream()
                 .map(Transaction::getAdvisor)
-                .distinct().collect(Collectors.toList());
+                .distinct().toList();
 
         for (String e : advisor) {
             /*
@@ -48,8 +47,7 @@ public class Main {
     private static Map<String, String> transactionDate(List<Transaction> transaction, String adviser) {
 
         List<Transaction> datesList = transaction.stream().filter(name -> adviser.equals(name.getAdvisor()))
-                .sorted(Comparator.comparing(Transaction::getTimestamp))
-                .collect(Collectors.toList());
+                .sorted(Comparator.comparing(Transaction::getTimestamp)).toList();
         String oldestDate = convertTimeStamp(datesList.get(0).getTimestamp());
         String newestDate = convertTimeStamp(datesList.get(datesList.size() - 1).getTimestamp());
         Map<String, String> tDate = new HashMap<>();
@@ -59,7 +57,7 @@ public class Main {
     }
 
     public static String totalBrokerageAmount(List<Transaction> transaction, String adviser) {
-        double totalAmount = 0;
+        double totalAmount;
         totalAmount = transaction.stream().
                 filter(name -> adviser.equals(name.getAdvisor())).mapToDouble(Transaction::getValue).sum();
         return String.format("%,.2f", totalAmount);
@@ -72,7 +70,7 @@ public class Main {
         try (BufferedReader br = Files.newBufferedReader(pathToFile,
                 StandardCharsets.US_ASCII)) {
             String line;
-            String headerLine = br.readLine();
+            br.readLine();
             while ((line = br.readLine()) != null) {
                 String[] values = line.split(COMMA_DELIMITER);
                 Transaction tm = createTransaction(values);
@@ -95,7 +93,7 @@ public class Main {
     }
 
     public static Timestamp convertStringToTimestamp(String strDate) {
-        Timestamp t = null;
+        Timestamp t;
         Instant instant = Instant.parse(strDate);
         LocalDateTime date = LocalDateTime.ofInstant(instant, ZoneOffset.UTC);
         t = Timestamp.valueOf(date);
@@ -103,12 +101,12 @@ public class Main {
     }
 
     private static Transaction createTransaction(String[] metadata) {
-        int txnid = Integer.parseInt(metadata[0]);
+        int txnId = Integer.parseInt(metadata[0]);
         Timestamp timestamp = convertStringToTimestamp(metadata[1]);
         String account = metadata[2];
         String advisor = metadata[3];
         double value = Double.parseDouble(metadata[4]);
-        return new Transaction(txnid, timestamp, account, advisor, value);
+        return new Transaction(txnId, timestamp, account, advisor, value);
     }
 
     public static String leftPadding(String input, char ch, int L) {

@@ -9,7 +9,7 @@ import java.util.List;
 
 class TransactionTest {
 
-    List<Transaction> transactions = Main.readTransaction("src/com/uttamdawadi/resource/transaction.csv");
+    final List<Transaction> transactions = Main.readTransaction("src/com/uttamdawadi/resource/transaction.csv");
 
     @Test
     void timestampConversationOne() {
